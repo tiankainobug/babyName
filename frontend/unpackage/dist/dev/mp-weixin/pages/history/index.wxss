@@ -1,0 +1,107 @@
+
+.history-header.data-v-b37acf1c {
+    text-align: center;
+    padding: 40rpx 20rpx;
+}
+.title.data-v-b37acf1c {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 10rpx;
+}
+.subtitle.data-v-b37acf1c {
+    font-size: 28rpx;
+    color: #666;
+}
+.empty-state.data-v-b37acf1c {
+    text-align: center;
+    padding: 100rpx 40rpx;
+}
+.empty-icon.data-v-b37acf1c {
+    font-size: 80rpx;
+    display: block;
+    margin-bottom: 30rpx;
+}
+.empty-text.data-v-b37acf1c {
+    font-size: 32rpx;
+    color: #333;
+    display: block;
+    margin-bottom: 10rpx;
+}
+.empty-desc.data-v-b37acf1c {
+    font-size: 28rpx;
+    color: #666;
+    display: block;
+    margin-bottom: 40rpx;
+}
+.history-list.data-v-b37acf1c {
+    padding: 0 20rpx;
+}
+.history-card.data-v-b37acf1c {
+    background: #fff;
+    border-radius: 12rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+.record-header.data-v-b37acf1c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20rpx;
+}
+.baby-info.data-v-b37acf1c {
+    display: flex;
+    align-items: center;
+    gap: 10rpx;
+}
+.baby-name.data-v-b37acf1c {
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+}
+.baby-gender.data-v-b37acf1c {
+    font-size: 28rpx;
+}
+.record-date.data-v-b37acf1c {
+    font-size: 24rpx;
+    color: #999;
+}
+.record-names.data-v-b37acf1c {
+    margin-bottom: 20rpx;
+}
+.name-item.data-v-b37acf1c {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15rpx 0;
+    border-bottom: 1rpx solid #f0f0f0;
+}
+.name-item.data-v-b37acf1c:last-child {
+    border-bottom: none;
+}
+.name-text.data-v-b37acf1c {
+    font-size: 28rpx;
+    color: #007aff;
+}
+.name-score.data-v-b37acf1c {
+    font-size: 24rpx;
+    color: #ff6b35;
+}
+.record-actions.data-v-b37acf1c {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20rpx;
+}
+.action-btn.data-v-b37acf1c {
+    font-size: 26rpx;
+    color: #007aff;
+    padding: 10rpx 20rpx;
+}
+.action-btn.delete.data-v-b37acf1c {
+    color: #ff3b30;
+}
+.action-btn.data-v-b37acf1c:active {
+    opacity: 0.7;
+}

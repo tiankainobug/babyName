@@ -1,0 +1,95 @@
+
+.login-form.data-v-d08ef7d4 {
+    background: #fff;
+    border-radius: 12rpx;
+    padding: 60rpx;
+    margin: 100rpx 40rpx;
+}
+.logo-section.data-v-d08ef7d4 {
+    text-align: center;
+    margin-bottom: 80rpx;
+}
+.logo-text.data-v-d08ef7d4 {
+    font-size: 48rpx;
+    font-weight: bold;
+    color: #007aff;
+    display: block;
+    margin-bottom: 20rpx;
+}
+.logo-desc.data-v-d08ef7d4 {
+    font-size: 28rpx;
+    color: #999;
+}
+.wechat-login-section.data-v-d08ef7d4 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 200rpx;
+    justify-content: center;
+}
+.login-hint.data-v-d08ef7d4 {
+    text-align: center;
+    margin-bottom: 40rpx;
+}
+.hint-text.data-v-d08ef7d4 {
+    font-size: 30rpx;
+    color: #666;
+    margin-bottom: 20rpx;
+    display: block;
+}
+.loading-dots.data-v-d08ef7d4 {
+    display: flex;
+    justify-content: center;
+    gap: 10rpx;
+}
+.loading-dots text.data-v-d08ef7d4 {
+    font-size: 24rpx;
+    color: #007aff;
+    animation: bounce-d08ef7d4 1.4s infinite ease-in-out;
+}
+.loading-dots text.data-v-d08ef7d4:nth-child(1) {
+    animation-delay: -0.32s;
+}
+.loading-dots text.data-v-d08ef7d4:nth-child(2) {
+    animation-delay: -0.16s;
+}
+@keyframes bounce-d08ef7d4 {
+0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+}
+40% {
+        transform: scale(1);
+        opacity: 1;
+}
+}
+.login-progress.data-v-d08ef7d4 {
+    text-align: center;
+    padding: 40rpx;
+}
+.progress-text.data-v-d08ef7d4 {
+    font-size: 32rpx;
+    color: #007aff;
+    font-weight: 500;
+}
+.login-error.data-v-d08ef7d4 {
+    text-align: center;
+    padding: 40rpx;
+}
+.error-text.data-v-d08ef7d4 {
+    font-size: 28rpx;
+    color: #e74c3c;
+    margin-bottom: 30rpx;
+    display: block;
+}
+.btn-retry.data-v-d08ef7d4 {
+    background: #007aff;
+    color: #fff;
+    border: none;
+    border-radius: 8rpx;
+    padding: 20rpx 40rpx;
+    font-size: 28rpx;
+}
+.btn-retry.data-v-d08ef7d4:active {
+    opacity: 0.8;
+}

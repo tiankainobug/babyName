@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: baby-name
+  
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://58.87.103.30:3306/baby_name?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
+    username: tiankai
+    password: Qq133242
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10          # 最大连接数（根据业务调整）
+      minimum-idle: 5                # 最小空闲连接
+      idle-timeout: 600000           # 空闲连接最大存活时间（10 分钟）
+      max-lifetime: 1800000          # 一个连接的最长存活时间（30 分钟，建议比 wait_timeout 小）
+      connection-timeout: 30000      # 连接超时（30 秒）
+      validation-timeout: 5000       # 校验连接超时（5 秒）
+      keepalive-time: 300000         # 连接保活心跳（5 分钟）
+  
+  # JPA配置
+  jpa:
+    hibernate:
+      ddl-auto: update  # 自动创建/更新表结构
+    show-sql: true     # 显示SQL语句
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true  # 格式化SQL输出
+    open-in-view: false
+
+# 微信小程序配置
+wechat:
+  mini-program:
+    app-id: ${WECHAT_APP_ID:wx9988be02c3bf5006}     # 从环境变量获取，默认值为your_wechat_app_id
+    app-secret: ${WECHAT_APP_SECRET:1c68243f81dd92d9cf4a82f32cb339f7}  # 从环境变量获取
+    
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:baby-name-jwt-secret-key-2024-very-long-secret-string-for-security}
+  expiration: ${JWT_EXPIRATION:604800}  # 7天 (单位：秒)
+
+# 日志配置
+logging:
+  level:
+    com.babyname: DEBUG
+    org.springframework.web: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

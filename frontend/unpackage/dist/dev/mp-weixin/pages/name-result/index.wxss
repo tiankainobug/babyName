@@ -1,0 +1,80 @@
+
+.result-header.data-v-189efbaa {
+    text-align: center;
+    padding: 40rpx 20rpx;
+}
+.title.data-v-189efbaa {
+    font-size: 40rpx;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 10rpx;
+}
+.subtitle.data-v-189efbaa {
+    font-size: 28rpx;
+    color: #666;
+}
+.names-list.data-v-189efbaa {
+    padding: 0 20rpx;
+}
+.name-card.data-v-189efbaa {
+    background: #fff;
+    border-radius: 12rpx;
+    padding: 30rpx;
+    margin-bottom: 20rpx;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.1);
+}
+.name-main.data-v-189efbaa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20rpx;
+}
+.name-text.data-v-189efbaa {
+    font-size: 36rpx;
+    font-weight: bold;
+    color: #007aff;
+}
+.name-score.data-v-189efbaa {
+    font-size: 28rpx;
+    color: #ff6b35;
+    font-weight: bold;
+}
+.name-meaning.data-v-189efbaa {
+    margin-bottom: 20rpx;
+}
+.meaning-label.data-v-189efbaa {
+    font-size: 26rpx;
+    color: #666;
+}
+.meaning-text.data-v-189efbaa {
+    font-size: 28rpx;
+    color: #333;
+    line-height: 1.5;
+}
+.name-details.data-v-189efbaa {
+    display: flex;
+    gap: 30rpx;
+}
+.detail-item.data-v-189efbaa {
+    font-size: 24rpx;
+    color: #999;
+}
+.action-buttons.data-v-189efbaa {
+    display: flex;
+    gap: 20rpx;
+    padding: 40rpx 20rpx;
+}
+.btn-secondary.data-v-189efbaa {
+    flex: 1;
+    background: #f5f5f5;
+    color: #333;
+    border-radius: 8rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    font-size: 32rpx;
+}
+.btn-secondary.data-v-189efbaa:active {
+    opacity: 0.7;
+}
