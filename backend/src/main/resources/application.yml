@@ -34,8 +34,8 @@ spring:
 # 微信小程序配置
 wechat:
   mini-program:
-    app-id: ${WECHAT_APP_ID:wx9988be02c3bf5006}     # 从环境变量获取，默认值为your_wechat_app_id
-    app-secret: ${WECHAT_APP_SECRET:1c68243f81dd92d9cf4a82f32cb339f7}  # 从环境变量获取
+    app-id: ${WECHAT_APP_ID:you_id}     # 从环境变量获取，默认值为your_wechat_app_id
+    app-secret: ${WECHAT_APP_SECRET:you_secret}  # 从环境变量获取
     
 # JWT配置
 jwt:
