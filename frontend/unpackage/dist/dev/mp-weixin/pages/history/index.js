@@ -21,13 +21,31 @@ var __async = (__this, __arguments, generator) => {
 };
 const common_vendor = require("../../common/vendor.js");
 const api_user = require("../../api/user.js");
+require("../../store/index.js");
+const store_user = require("../../store/user.js");
 const _sfc_main = {
   __name: "index",
   setup(__props, { expose: __expose }) {
     __expose();
     const historyList = common_vendor.ref([]);
     const loading = common_vendor.ref(false);
+    const userStore = store_user.useUserStore();
     common_vendor.onMounted(() => {
+      userStore.initUserInfo();
+      if (!userStore.hasToken) {
+        common_vendor.index.showModal({
+          title: "需要登录",
+          content: "请先登录后查看历史记录",
+          showCancel: false,
+          confirmText: "去登录",
+          success: () => {
+            common_vendor.index.switchTab({
+              url: "/pages/baby-info/index"
+            });
+          }
+        });
+        return;
+      }
       loadHistory();
     });
     const loadHistory = () => __async(this, null, function* () {
@@ -125,8 +143,10 @@ const _sfc_main = {
         })
       });
     });
-    const __returned__ = { historyList, loading, loadHistory, loadMockHistory, goToNaming, viewNameDetail, viewAllNames, deleteRecord, onMounted: common_vendor.onMounted, ref: common_vendor.ref, get nameApi() {
+    const __returned__ = { historyList, loading, userStore, loadHistory, loadMockHistory, goToNaming, viewNameDetail, viewAllNames, deleteRecord, onMounted: common_vendor.onMounted, ref: common_vendor.ref, get nameApi() {
       return api_user.nameApi;
+    }, get useUserStore() {
+      return store_user.useUserStore;
     } };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;

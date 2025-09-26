@@ -81,10 +81,15 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { nameApi } from '../../api/user.js'
+import { reactive, ref, onMounted } from 'vue'
+import { nameApi, userApi } from '../../api/user.js'
+import { useUserStore } from '@/store'
 
 const loading = ref(false)
+const userStore = useUserStore()
+
+// 登录相关状态（仅保留错误处理）
+const loginErrorMessage = ref('')
 
 const babyInfo = reactive({
     surname: '',
@@ -124,7 +129,103 @@ const togglePreference = (value) => {
     }
 }
 
+// 页面加载时检查登录状态并自动登录
+onMounted(() => {
+    initializeLogin()
+})
+
+// 初始化登录流程
+const initializeLogin = async () => {
+    // 先检查是否已经有token
+    userStore.initUserInfo()
+    
+    if (userStore.hasToken) {
+        // 已经登录，直接进入页面
+        console.log('用户已登录，直接进入页面')
+        return
+    }
+    
+    // 需要登录，静默开始自动登录
+    await startSilentLogin()
+}
+
+// 开始静默登录流程
+const startSilentLogin = async () => {
+    try {
+        // 第一步：获取微信登录授权
+        const loginResult = await getWechatAuth()
+
+        if (loginResult.code) {
+            // 第二步：使用授权码向后端请求登录
+            const result = await userApi.wechatLogin({
+                code: loginResult.code
+            })
+
+            console.log('微信登录结果:', result)
+            if (result.success) {
+                // 登录成功，保存用户信息
+                userStore.setToken(result.data.token, 'wechat')
+                userStore.setUserInfo(result.data.userInfo)
+
+                console.log('静默登录成功')
+            } else {
+                throw new Error(result.message || '微信登录失败')
+            }
+        } else {
+            throw new Error('获取微信授权失败')
+        }
+    } catch (error) {
+        console.error('微信登录失败:', error)
+        loginErrorMessage.value = error.message || '网络错误，请重试'
+        // 显示登录失败弹框
+        showLoginErrorModal()
+    }
+}
+
+// 获取微信授权
+const getWechatAuth = () => {
+    return new Promise((resolve, reject) => {
+        uni.login({
+            provider: 'weixin',
+            success: (loginRes) => {
+                console.log('微信登录授权成功:', loginRes)
+                resolve(loginRes)
+            },
+            fail: (error) => {
+                console.error('微信登录授权失败:', error)
+                reject(new Error('微信授权失败'))
+            }
+        })
+    })
+}
+
+// 显示登录失败弹框
+const showLoginErrorModal = () => {
+    uni.showModal({
+        title: '登录失败',
+        content: loginErrorMessage.value,
+        confirmText: '重试',
+        cancelText: '取消',
+        success: (res) => {
+            if (res.confirm) {
+                // 用户选择重试
+                startSilentLogin()
+            }
+        }
+    })
+}
+
 const generateNames = async () => {
+    // 确保用户已登录
+    if (!userStore.hasToken) {
+        uni.showToast({
+            title: '请先登录',
+            icon: 'error'
+        })
+        await initializeLogin()
+        return
+    }
+
     // 验证必填字段
     if (!babyInfo.surname) {
         uni.showToast({

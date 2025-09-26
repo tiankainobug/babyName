@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/login/index",
     "pages/baby-info/index",
+    "pages/profile/index",
     "pages/name-result/index",
-    "pages/history/index"
+    "pages/history/index",
+    "pages/favorites/index"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -22,8 +23,8 @@
         "text": "起名"
       },
       {
-        "pagePath": "pages/history/index",
-        "text": "历史"
+        "pagePath": "pages/profile/index",
+        "text": "我的"
       }
     ]
   },

@@ -54,11 +54,33 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { nameApi } from '../../api/user.js'
+import { useUserStore } from '@/store'
 
 const historyList = ref([])
 const loading = ref(false)
+const userStore = useUserStore()
 
 onMounted(() => {
+    // 初始化用户信息
+    userStore.initUserInfo()
+    
+    // 检查登录状态
+    if (!userStore.hasToken) {
+        // 未登录，提示并跳转到起名页面
+        uni.showModal({
+            title: '需要登录',
+            content: '请先登录后查看历史记录',
+            showCancel: false,
+            confirmText: '去登录',
+            success: () => {
+                uni.switchTab({
+                    url: '/pages/baby-info/index'
+                })
+            }
+        })
+        return
+    }
+    
     loadHistory()
 })
 

@@ -30,6 +30,18 @@ const nameApi = {
   // 删除历史记录
   deleteHistory(id) {
     return api_request.request.delete(`/names/history/${id}`);
+  },
+  // 获取收藏列表
+  getFavorites() {
+    return api_request.request.get("/names/favorites");
+  },
+  // 添加收藏
+  addFavorite(data) {
+    return api_request.request.post("/names/favorites", data);
+  },
+  // 取消收藏
+  removeFavorite(id) {
+    return api_request.request.delete(`/names/favorites/${id}`);
   }
 };
 exports.nameApi = nameApi;

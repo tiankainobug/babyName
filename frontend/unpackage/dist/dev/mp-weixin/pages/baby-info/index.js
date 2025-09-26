@@ -21,11 +21,15 @@ var __async = (__this, __arguments, generator) => {
 };
 const common_vendor = require("../../common/vendor.js");
 const api_user = require("../../api/user.js");
+require("../../store/index.js");
+const store_user = require("../../store/user.js");
 const _sfc_main = {
   __name: "index",
   setup(__props, { expose: __expose }) {
     __expose();
     const loading = common_vendor.ref(false);
+    const userStore = store_user.useUserStore();
+    const loginErrorMessage = common_vendor.ref("");
     const babyInfo = common_vendor.reactive({
       surname: "",
       gender: "",
@@ -58,7 +62,78 @@ const _sfc_main = {
         babyInfo.preferences.push(value);
       }
     };
+    common_vendor.onMounted(() => {
+      initializeLogin();
+    });
+    const initializeLogin = () => __async(this, null, function* () {
+      userStore.initUserInfo();
+      if (userStore.hasToken) {
+        console.log("用户已登录，直接进入页面");
+        return;
+      }
+      yield startSilentLogin();
+    });
+    const startSilentLogin = () => __async(this, null, function* () {
+      try {
+        const loginResult = yield getWechatAuth();
+        if (loginResult.code) {
+          const result = yield api_user.userApi.wechatLogin({
+            code: loginResult.code
+          });
+          console.log("微信登录结果:", result);
+          if (result.success) {
+            userStore.setToken(result.data.token, "wechat");
+            userStore.setUserInfo(result.data.userInfo);
+            console.log("静默登录成功");
+          } else {
+            throw new Error(result.message || "微信登录失败");
+          }
+        } else {
+          throw new Error("获取微信授权失败");
+        }
+      } catch (error) {
+        console.error("微信登录失败:", error);
+        loginErrorMessage.value = error.message || "网络错误，请重试";
+        showLoginErrorModal();
+      }
+    });
+    const getWechatAuth = () => {
+      return new Promise((resolve, reject) => {
+        common_vendor.index.login({
+          provider: "weixin",
+          success: (loginRes) => {
+            console.log("微信登录授权成功:", loginRes);
+            resolve(loginRes);
+          },
+          fail: (error) => {
+            console.error("微信登录授权失败:", error);
+            reject(new Error("微信授权失败"));
+          }
+        });
+      });
+    };
+    const showLoginErrorModal = () => {
+      common_vendor.index.showModal({
+        title: "登录失败",
+        content: loginErrorMessage.value,
+        confirmText: "重试",
+        cancelText: "取消",
+        success: (res) => {
+          if (res.confirm) {
+            startSilentLogin();
+          }
+        }
+      });
+    };
     const generateNames = () => __async(this, null, function* () {
+      if (!userStore.hasToken) {
+        common_vendor.index.showToast({
+          title: "请先登录",
+          icon: "error"
+        });
+        yield initializeLogin();
+        return;
+      }
       if (!babyInfo.surname) {
         common_vendor.index.showToast({
           title: "请输入姓氏",
@@ -103,8 +178,12 @@ const _sfc_main = {
         loading.value = false;
       }
     });
-    const __returned__ = { loading, babyInfo, preferences, selectGender, onDateChange, onTimeChange, togglePreference, generateNames, reactive: common_vendor.reactive, ref: common_vendor.ref, get nameApi() {
+    const __returned__ = { loading, userStore, loginErrorMessage, babyInfo, preferences, selectGender, onDateChange, onTimeChange, togglePreference, initializeLogin, startSilentLogin, getWechatAuth, showLoginErrorModal, generateNames, reactive: common_vendor.reactive, ref: common_vendor.ref, onMounted: common_vendor.onMounted, get nameApi() {
       return api_user.nameApi;
+    }, get userApi() {
+      return api_user.userApi;
+    }, get useUserStore() {
+      return store_user.useUserStore;
     } };
     Object.defineProperty(__returned__, "__isScriptSetup", { enumerable: false, value: true });
     return __returned__;

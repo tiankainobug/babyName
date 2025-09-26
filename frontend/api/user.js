@@ -38,5 +38,20 @@ export const nameApi = {
   // 删除历史记录
   deleteHistory(id) {
     return request.delete(`/names/history/${id}`)
+  },
+  
+  // 获取收藏列表
+  getFavorites() {
+    return request.get('/names/favorites')
+  },
+  
+  // 添加收藏
+  addFavorite(data) {
+    return request.post('/names/favorites', data)
+  },
+  
+  // 取消收藏
+  removeFavorite(id) {
+    return request.delete(`/names/favorites/${id}`)
   }
 }

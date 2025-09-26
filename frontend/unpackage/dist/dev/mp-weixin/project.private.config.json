@@ -4,18 +4,5 @@
   "setting": {
     "compileHotReLoad": true,
     "urlCheck": false
-  },
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "历史",
-          "pathName": "pages/history/index",
-          "query": "",
-          "scene": null,
-          "launchMode": "default"
-        }
-      ]
-    }
   }
 }
