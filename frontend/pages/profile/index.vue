@@ -42,23 +42,23 @@
         </view>
 
         <!-- 设置区域 -->
-        <view class="settings-section">
-            <view class="menu-item" @click="logout" v-if="isLoggedIn">
-                <view class="menu-icon">🚪</view>
-                <view class="menu-content">
-                    <text class="menu-title">退出登录</text>
-                </view>
-                <view class="menu-arrow">></view>
-            </view>
+        <!--<view class="settings-section">-->
+        <!--    <view class="menu-item" @click="logout" v-if="isLoggedIn">-->
+        <!--        <view class="menu-icon">🚪</view>-->
+        <!--        <view class="menu-content">-->
+        <!--            <text class="menu-title">退出登录</text>-->
+        <!--        </view>-->
+        <!--        <view class="menu-arrow">></view>-->
+        <!--    </view>-->
 
-            <view class="menu-item" @click="goToLogin" v-else>
-                <view class="menu-icon">🔐</view>
-                <view class="menu-content">
-                    <text class="menu-title">登录/注册</text>
-                </view>
-                <view class="menu-arrow">></view>
-            </view>
-        </view>
+        <!--    <view class="menu-item" @click="goToLogin" v-else>-->
+        <!--        <view class="menu-icon">🔐</view>-->
+        <!--        <view class="menu-content">-->
+        <!--            <text class="menu-title">登录/注册</text>-->
+        <!--        </view>-->
+        <!--        <view class="menu-arrow">></view>-->
+        <!--    </view>-->
+        <!--</view>-->
     </view>
 </template>
 
