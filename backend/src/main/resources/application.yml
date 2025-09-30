@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9001
 
 spring:
   application:
@@ -34,13 +34,18 @@ spring:
 # 微信小程序配置
 wechat:
   mini-program:
-    app-id: ${WECHAT_APP_ID:you_id}     # 从环境变量获取，默认值为your_wechat_app_id
-    app-secret: ${WECHAT_APP_SECRET:you_secret}  # 从环境变量获取
+    app-id: ${WECHAT_APP_ID:wx9988be02c3bf5006}     # 从环境变量获取，默认值为your_wechat_app_id
+    app-secret: ${WECHAT_APP_SECRET:1c68243f81dd92d9cf4a82f32cb339f7}  # 从环境变量获取
     
 # JWT配置
 jwt:
   secret: ${JWT_SECRET:baby-name-jwt-secret-key-2024-very-long-secret-string-for-security}
   expiration: ${JWT_EXPIRATION:604800}  # 7天 (单位：秒)
+
+# FastAPI服务配置
+fastapi:
+  base-url: ${FASTAPI_BASE_URL:http://localhost:8000}
+  timeout: ${FASTAPI_TIMEOUT:30}
 
 # 日志配置
 logging:

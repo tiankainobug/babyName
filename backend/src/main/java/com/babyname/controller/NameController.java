@@ -2,12 +2,17 @@ package com.babyname.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import com.babyname.service.FastApiService;
 import java.util.*;
 
 @RestController
 @RequestMapping("/api/names")
 @CrossOrigin(origins = "*")
 public class NameController {
+
+    @Autowired
+    private FastApiService fastApiService;
 
     @PostMapping("/generate")
     public ResponseEntity<Map<String, Object>> generateNames(@RequestBody Map<String, Object> request) {
@@ -21,18 +26,39 @@ public class NameController {
         Map<String, Object> response = new HashMap<>();
         
         if (surname != null && gender != null && birthDate != null) {
-            // 模拟生成名字
-            List<Map<String, Object>> names = generateMockNames(surname, gender, preferences);
-            
-            Map<String, Object> data = new HashMap<>();
-            data.put("names", names);
-            data.put("babyInfo", request);
-            
-            response.put("success", true);
-            response.put("message", "起名成功");
-            response.put("data", data);
-            
-            return ResponseEntity.ok(response);
+            try {
+                // 调用FastAPI服务生成名字
+                Map<String, Object> fastApiResult = fastApiService.generateNames(request);
+                
+                @SuppressWarnings("unchecked")
+                List<Map<String, Object>> names = (List<Map<String, Object>>) fastApiResult.get("data");
+                
+                Map<String, Object> data = new HashMap<>();
+                data.put("names", names);
+                data.put("babyInfo", request);
+                
+                response.put("success", true);
+                response.put("message", "起名成功");
+                response.put("data", data);
+                
+                return ResponseEntity.ok(response);
+                
+            } catch (Exception e) {
+                // 异常处理，使用备用方案
+                System.err.println("调用FastAPI服务失败: " + e.getMessage());
+                
+                List<Map<String, Object>> names = generateMockNames(surname, gender, preferences);
+                
+                Map<String, Object> data = new HashMap<>();
+                data.put("names", names);
+                data.put("babyInfo", request);
+                
+                response.put("success", true);
+                response.put("message", "起名成功（备用方案）");
+                response.put("data", data);
+                
+                return ResponseEntity.ok(response);
+            }
         } else {
             response.put("success", false);
             response.put("message", "请填写完整的宝宝信息");
@@ -79,6 +105,19 @@ public class NameController {
         return ResponseEntity.ok(response);
     }
     
+    @GetMapping("/fastapi/health")
+    public ResponseEntity<Map<String, Object>> checkFastApiHealth() {
+        Map<String, Object> response = new HashMap<>();
+        
+        boolean isHealthy = fastApiService.testConnection();
+        
+        response.put("success", true);
+        response.put("fastapi_status", isHealthy ? "healthy" : "unhealthy");
+        response.put("message", isHealthy ? "FastAPI服务正常" : "FastAPI服务不可用");
+        
+        return ResponseEntity.ok(response);
+    }
+    
     private List<Map<String, Object>> generateMockNames(String surname, String gender, List<String> preferences) {
         List<Map<String, Object>> names = new ArrayList<>();
         
@@ -109,3 +148,8 @@ public class NameController {
         return name;
     }
 }
+
+
+
+
+

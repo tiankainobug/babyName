@@ -28,3 +28,9 @@ DESCRIBE users;
 
 -- 查看数据
 SELECT * FROM users LIMIT 5;
+
+
+
+
+
+

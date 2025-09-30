@@ -108,3 +108,9 @@ public class User {
         WECHAT, NORMAL
     }
 }
+
+
+
+
+
+
